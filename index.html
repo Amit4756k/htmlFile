@@ -1,106 +1,399 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Amit Kumar Mishra | Cybersecurity Engineer Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #040611;
+      --text: #e0e8ff;
+      --muted: #9ca6c9;
+      --accent: #00e0ff;
+      --accent2: #7b2eff;
+      --grad: linear-gradient(135deg, var(--accent), var(--accent2));
+      --light-bg: #f4f4f4;
+      --light-text: #111;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.light { background: var(--light-bg); color: var(--light-text); }
+    header {
+      position: fixed; top: 0; width: 100%;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 40px;
+      z-index: 1000;
+      transition: background 0.3s;
+    }
+    body.light header { background: rgba(255,255,255,0.8); }
+    header h1 {
+      font-size: 1.7rem;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 1px;
+    }
+    nav a {
+      color: var(--text);
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    body.light nav a { color: var(--light-text); }
+    nav a:hover { color: var(--accent); }
+
+    .hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      text-align: center;
+      padding: 120px 20px 80px;
+      background: radial-gradient(circle at top right, rgba(123,46,255,0.1), transparent),
+                  radial-gradient(circle at bottom left, rgba(0,224,255,0.1), transparent),
+                  var(--bg);
+      transition: background 0.3s;
+    }
+    body.light .hero { background: #e6e6ff; }
+    .hero img {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 25px rgba(0,224,255,0.4);
+      margin-bottom: 20px;
+      animation: glow 3s infinite alternate;
+      object-fit: cover;
+    }
+    @keyframes glow {
+      from { box-shadow: 0 0 15px rgba(0,224,255,0.3); }
+      to { box-shadow: 0 0 35px rgba(123,46,255,0.6); }
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero h3 { color: var(--muted); margin-bottom: 20px; }
+    .hero p { max-width: 650px; color: var(--muted); margin-bottom: 30px; }
+    .hero button {
+      background: var(--grad);
+      border: none; padding: 12px 24px;
+      border-radius: 10px;
+      color: #fff; font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 20px rgba(0,224,255,0.3);
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+    .hero button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 30px rgba(123,46,255,0.5);
+    }
+
+    section {
+      max-width: 1100px; margin: 80px auto; padding: 0 20px;
+      animation: fadeUp 1s ease both;
+    }
+    section h2 {
+      text-align: center;
+      margin-bottom: 24px;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Education & Experience timeline */
+    .timeline {
+      position: relative;
+      margin: 40px 0;
+      padding-left: 30px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--accent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 40px;
+      padding-left: 20px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -14px;
+      top: 0;
+      width: 12px;
+      height: 12px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .skills, .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .skill, .project { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 16px; border-radius: 12px; transition: transform 0.3s, border-color 0.3s; }
+    .skill:hover, .project:hover { transform: translateY(-5px); border-color: var(--accent); }
+
+    .skill-bar {
+      background: rgba(255,255,255,0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      margin-top: 6px;
+    }
+    .skill-bar-inner {
+      height: 8px;
+      background: var(--accent);
+      width: 0;
+      transition: width 1s;
+    }
+
+    footer { text-align: center; padding: 30px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 80px; }
+
+    /* Popup */
+    .popup { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; justify-content: center; align-items: center; z-index: 2000; }
+    .popup-content { background: #11172b; padding: 20px; border-radius: 12px; max-width: 700px; width: 90%; box-shadow: 0 0 30px rgba(0,224,255,0.3); text-align: left; position: relative; }
+    .close-btn { position: absolute; top: 10px; right: 15px; cursor: pointer; color: var(--accent); font-size: 1.4rem; }
+
+    /* Contact form */
+    .contact-form { display:flex; flex-direction:column; max-width:500px; margin:auto; gap:12px; }
+    .contact-form input, .contact-form textarea { padding:10px; border-radius:6px; border:none; outline:none; }
+    .contact-form button { cursor:pointer; background:var(--grad); color:white; font-weight:600; padding:10px; border:none; border-radius:6px; transition: 0.3s; }
+    .contact-form button:hover { opacity:0.9; }
+
+    /* Dark/Light toggle */
+    #themeToggle { cursor:pointer; margin-left:20px; background:none; border:none; font-size:1.2rem; color:var(--accent); }
+  </style>
 </head>
 <body>
-    <!--
-        TABLE CREATION
+  <header>
+    <h1>Amit Kumar Mishra</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#experience">Experience</a>
+      <a href="#contact">Contact</a>
+      <button id="themeToggle">🌙</button>
+    </nav>
+  </header>
 
-    <Table border>
-        <tr>
-            <th>Name</th>
-            <th>Color</th>
-            <th>Taste</th>
-        </tr>
-        <tr>
-            <td>Mango</td>
-            <td>Green</td>
-            <td>Sweet&sour</td>
-        </tr>
-        <tr>
-            <td>PineApple</td>
-            <td>Yellow</td>
-            <td>Sour</td>
-        </tr>
-        <tr>
-            <td>Banana</td>
-            <td>Yellow</td>
-            <td>Sweet</td>
-        </tr>
-   </Table>-->
+  <section class="hero" id="hero">
+    <img src="photo2.jpg" alt="Amit Kumar Mishra">
+    <h2>Hi, I'm Amit Kumar Mishra 👋</h2>
+    <h3>MCA Student | Cybersecurity Engineer</h3>
+    <p>Pursuing MCA (Cybersecurity) at Ajeenkya DY Patil University. Completed internship in 2024 in network defense and vulnerability assessment. Seeking full-time cybersecurity opportunities to secure digital systems.</p>
+    <button id="Amit_Kumar_Mishra_Resume">Download Resume (PDF)</button>
+  </section>
 
+  <section id="about">
+    <h2>About Me</h2>
+    <p style="text-align:center;max-width:800px;margin:auto;color:var(--muted);">
+      Passionate about cybersecurity, ethical hacking, and digital defense. I implement real-world security solutions while continuously evolving with modern attack vectors.
+    </p>
+  </section>
 
-     <!-- Unordered List-->
-<!--
-     <ul>
-        <h3>Movies List</h3>
-        <li>RRR</li>
-        <p>RRR is a 2022 Indian Telugu-language action drama film directed by S. S. Rajamouli. Set in the 1920s, it follows two freedom fighters, Alluri Sitarama Raju and Komaram Bheem, on a fictional journey of friendship, rebellion, and patriotism. The film is known for its epic storytelling and stunning visuals.RRR combines historical fiction with high-octane action, emotional depth, and powerful performances by N. T. Rama Rao Jr. and Ram Charan. The film explores themes of sacrifice, loyalty, and resistance against British colonial rule. Its music, choreography, and grand set pieces captivated audiences worldwide, earning critical acclaim and international recognition.</p>
-        <li>Pushpa 2</li>
-        <p>Pushpa 2: The Rule is the highly anticipated sequel to the blockbuster Pushpa: The Rise, directed by Sukumar and starring Allu Arjun in the titular role. The film continues the gritty story of Pushpa Raj, a red sandalwood smuggler who rises through the ranks of the criminal underworld. Set in the rugged forests of Andhra Pradesh, Pushpa 2 delves deeper into his power struggles, personal conflicts, and confrontations with law enforcement, particularly with his nemesis, SP Bhanwar Singh Shekhawat. Known for its raw intensity, action-packed sequences, and powerful dialogues, the film promises a gripping continuation of Pushpa’s rebellious journey.</p>
-        <li>KGF</li>
-        <p>*KGF* (Kolar Gold Fields) is a two-part Indian Kannada-language action film series directed by Prashanth Neel and starring Yash as Rocky, a fearless and ambitious gangster. Set in the 1970s and 1980s, the story follows Rocky's rise from poverty to power as he takes control of the oppressive gold mines of KGF. The films portray his relentless fight against brutal enemies, corrupt politicians, and tyrannical rulers, all while seeking justice for the oppressed. With stunning visuals, gripping storytelling, and high-octane action, *KGF* became a pan-India sensation, redefining Kannada cinema and leaving a lasting impact on Indian film history.</p>
-        <li>Thor</li>
-        <p>The Thor film series, part of the Marvel Cinematic Universe, follows the journey of Thor, the Norse God of Thunder, portrayed by Chris Hemsworth. Blending myth, science fiction, and superhero action, the films explore Thor’s battles to protect Asgard, Earth, and the universe from powerful foes. From his rivalry with Loki to cosmic threats like Hela and Gorr the God Butcher, the series combines epic action, humor, and emotional depth, highlighting Thor’s evolution from arrogant prince to worthy hero.</p>
-        <li>Avangers</li>
-        <p>The Avengers film series is a cornerstone of the Marvel Cinematic Universe, uniting iconic superheroes like Iron Man, Captain America, Thor, Hulk, Black Widow, and Hawkeye. Together, they face global and cosmic threats, including Loki, Ultron, and Thanos. Blending action, humor, and emotional stakes, the films showcase themes of teamwork, sacrifice, and heroism. From assembling in The Avengers (2012) to the epic finale in Endgame (2019), the series redefined blockbuster cinema and captivated audiences worldwide.</p>
+  <section id="education">
+    <h2>Education & Certifications</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>MCA (Cybersecurity)</h4>
+        <p>Ajeenkya DY Patil University, Pune (2023–2025)</p>
+      </div>
+      <div class="timeline-item">
+        <h4>BCA</h4>
+        <p>christ University (2021–2024)</p>
+      </div>
+      <div class="timeline-item">
+        <h4>Certified Ethical Hacker (CEH) – 2024</h4>
+        <p>Hands-on certification for penetration testing and security analysis.</p>
+      </div>
+    </div>
+  </section>
 
-     </ul>-->
+  <section id="skills">
+    <h2>Technical Skills</h2>
+    <div class="skills">
+      <div class="skill">
+        <h4>Network Security</h4>
+        <div class="skill-bar"><div class="skill-bar-inner" style="width:90%"></div></div>
+      </div>
+      <div class="skill">
+        <h4>Penetration Testing</h4>
+        <div class="skill-bar"><div class="skill-bar-inner" style="width:85%"></div></div>
+      </div>
+      <div class="skill">
+        <h4>Web Application Security</h4>
+        <div class="skill-bar"><div class="skill-bar-inner" style="width:80%"></div></div>
+      </div>
+      <div class="skill">
+        <h4>Linux & Scripting</h4>
+        <div class="skill-bar"><div class="skill-bar-inner" style="width:85%"></div></div>
+      </div>
+      <div class="skill">
+        <h4>Cloud Security</h4>
+        <div class="skill-bar"><div class="skill-bar-inner" style="width:70%"></div></div>
+      </div>
+      <div class="skill">
+        <h4>Incident Response</h4>
+        <div class="skill-bar"><div class="skill-bar-inner" style="width:80%"></div></div>
+      </div>
+    </div>
+  </section>
 
-     <!--
-     <ol type="i">
-     <li>Pushpa 2</li>
-     <p>Pushpa 2 achieved monumental success:
-Worldwide Gross: Estimated between ₹1,642–1,800 crore, positioning it among the highest-grossing Indian films. 
-Domestic Collection: Approximately ₹1,467.2 crore gross in India. 
-The Indian Express International Earnings: Notably, the film grossed ₹27.03 crore in Nepal, becoming the highest-grossing foreign film there.</p>
-     <br>
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="project">
+        <h4>Password Strength Checker</h4>
+        <p>Checks password strength based on entropy and pattern recognition.</p>
+        <button onclick="openProject('password')">Run Project</button>
+        <a href="#" target="_blank" style="color:var(--accent);display:block;margin-top:6px;">GitHub</a>
+      </div>
+      <div class="project">
+        <h4>Simple Encryption Tool</h4>
+        <p>Encrypts and decrypts text using Caesar cipher logic.</p>
+        <button onclick="openProject('encrypt')">Run Project</button>
+        <a href="#" target="_blank" style="color:var(--accent);display:block;margin-top:6px;">GitHub</a>
+      </div>
+      <div class="project">
+        <h4>Port Scanner Simulator</h4>
+        <p>Simulates open/closed port detection on a virtual host.</p>
+        <button onclick="openProject('port')">Run Project</button>
+        <a href="#" target="_blank" style="color:var(--accent);display:block;margin-top:6px;">GitHub</a>
+      </div>
+      <div class="project">
+        <h4>Network Packet Visualizer</h4>
+        <p>Animated packet transmission visualization using canvas.</p>
+        <button onclick="openProject('packets')">Run Project</button>
+        <a href="#" target="_blank" style="color:var(--accent);display:block;margin-top:6px;">GitHub</a>
+      </div>
+    </div>
+  </section>
 
-<li>RRR</li>
-<br>
-Worldwide Gross: ₹1,253–1,387 crore Opening Day Collection: ₹223 crore worldwide, setting a record for the highest opening-day gross for an Indian film at the time 
-Domestic Success: Highest-grossing film in Andhra Pradesh and Telangana, with over ₹406 crore 
-International Success: Significant box office earnings in Japan, contributing to its global total
-<br>
-<br>
-<li>KGF</li>
-<p>Box Office Performance: The film grossed over ₹250 crore worldwide, marking a significant achievement for Kannada cinema.
-Critical Reception: Critics praised its gripping narrative, cinematography, and action sequences. However, some noted issues with the screenplay and editing. Yash's portrayal of Rocky received widespread acclaim. 
-Awards: Anbariv won the National Film Award for Best Stunt Choreography for their work in this film. </p>
-     </ol>
-    -->
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>Cybersecurity Intern – 2024</h4>
+        <p>Conducted vulnerability assessments, network defense, and incident response during internship at ABC Company.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Form Creation-->
-     <h3>Application Form</h3>
-      <form action="">
-        <input type="Name" placeholder="Enter Your Name" minlength="5" max="15">
-        <br> <br>
-        <input type="email" placeholder="Enter Your email">
-         <h3>Gender</h3>
-         <label for="Gender">Male</label>
-         <input type="radio" name="Gender" id="">
-         <label for="Gender">Female</label>
-         <input type="radio" name="Gender" id="">
-         <label for="Gender">Others</label>
-         <input type="radio" name="Gender" id="">
-         <br><br>
-         <label for="" >All Suitable age criteria</label>
-         <input type="checkbox">
-         <br>
-         <label for="">18-24</label>
-        <input type="checkbox" name="age"> <br>
-        <label for="">25-34</label>
-        <input type="checkbox" name="age"> <br>
-        <label for="">35-44</label>
-        <input type="checkbox" name="age"> <br>
-<br>
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form class="contact-form" id="contactForm">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Email" required>
+      <textarea placeholder="Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
 
-        <button>Submit Here</button>
-      </form>
+  <footer>© <span id="year"></span> Amit Kumar Mishra — Cybersecurity Portfolio</footer>
 
-    
-</body>
-</html>
+  <!-- Project Popup -->
+  <div class="popup" id="popup">
+    <div class="popup-content" id="popup-content">
+      <span class="close-btn" onclick="closePopup()">✖</span>
+      <div id="project-area"></div>
+    </div>
+  </div>
+
+  <script>
+    // Year
+    document.getElementById("year").innerText = new Date().getFullYear();
+
+    // Theme toggle
+    const themeBtn = document.getElementById("themeToggle");
+    themeBtn.addEventListener('click', ()=>{ document.body.classList.toggle('light'); themeBtn.textContent = document.body.classList.contains('light') ? '🌙' : '☀️'; });
+
+    // Resume download (basic PDF) — use the actual button id from the page
+    document.getElementById("Amit_Kumar_Mishra_Resume").addEventListener("click", () => {
+      const docContent = `
+Amit Kumar Mishra
+Cybersecurity Engineer | MCA (Cybersecurity)
+
+Email: amitkmishra@example.com
+LinkedIn: linkedin.com/in/amit-kumar-mishra-350262335
+
+Education:
+- MCA (Cybersecurity), Ajeenkya DY Patil University
+- BCA, XYZ University
+- CEH Certified (2024)
+
+Experience:
+- Cybersecurity Internship (2024)
+
+Projects:
+1. Password Strength Checker
+2. Simple Encryption Tool
+3. Port Scanner Simulator
+4. Network Packet Visualizer
+
+Skills:
+Network Security, Penetration Testing, Web Security, Cloud Security, Linux, Python, Incident Response
+`;
+      const blob = new Blob([docContent], { type: "application/pdf" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "Amit_Kumar_Mishra_Resume.pdf";
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    // Popup logic (projects)
+    function openProject(type) {
+      const popup = document.getElementById("popup");
+      const area = document.getElementById("project-area");
+      area.innerHTML = '';
+      if(type==='password') {
+        area.innerHTML=`<h3>Password Strength Checker</h3><input type='text' id='pw' placeholder='Enter password...'><p id='result'></p>`;
+        setTimeout(()=>{ document.getElementById('pw').oninput=e=>{ let v=e.target.value, s='Weak'; if(v.length>8&&/[A-Z]/.test(v)&&/[0-9]/.test(v)&&/[!@#$%^&*]/.test(v)) s='Strong'; else if(v.length>5) s='Medium'; document.getElementById('result').textContent='Strength: '+s; }},50);
+      } else if (type==='encrypt') {
+        area.innerHTML=`<h3>Simple Encryption Tool</h3><textarea id='enc-in' rows='4' placeholder='Text...'></textarea><input id='enc-shift' type='number' value='3' min='0' style='width:80px'><button id='enc-run'>Encrypt</button><p id='enc-out'></p>`;
+        setTimeout(()=>{ document.getElementById('enc-run').onclick=()=>{ const t=document.getElementById('enc-in').value; const s=parseInt(document.getElementById('enc-shift').value)||0; let out=''; for(let c of t){ if(c.match(/[a-z]/)){ out+=String.fromCharCode((c.charCodeAt(0)-97+s)%26+97);} else if(c.match(/[A-Z]/)){ out+=String.fromCharCode((c.charCodeAt(0)-65+s)%26+65);} else out+=c;} document.getElementById('enc-out').textContent=out; }},50);
+      } else {
+        area.innerHTML=`<h3>${type} Project</h3><p>Demo content coming soon.</p>`;
+      }
+      popup.style.display = 'flex';
+    }
+
+    function closePopup() {
+      const popup = document.getElementById('popup');
+      const area = document.getElementById('project-area');
+      popup.style.display = 'none';
+      area.innerHTML = '';
+    }
+
+    // Contact form submit (demo)
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+      contactForm.addEventListener('submit', function(e){
+        e.preventDefault();
+        // Replace with real submission logic as needed
+        alert('Message sent (demo)');
+        this.reset();
+      });
+    }
+  </script>
